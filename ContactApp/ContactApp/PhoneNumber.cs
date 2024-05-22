@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -26,10 +27,10 @@ namespace ContactApp
                 throw new ArgumentException("Неверно набран номер");
         }
 
-        /// <summary>
-        /// Метод для получения номера телефона(метод get).
-        /// </summary>
-        public long GetNumber()
+    /// <summary>
+    /// Метод для получения номера телефона(метод get).
+    /// </summary>
+    public long GetNumber()
         {
             return Number;
         }
