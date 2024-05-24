@@ -70,10 +70,11 @@
             // SurnameTextBox
             // 
             this.SurnameTextBox.Location = new System.Drawing.Point(80, 18);
-            this.SurnameTextBox.MaxLength = 25643;
+            this.SurnameTextBox.MaxLength = 50;
             this.SurnameTextBox.Name = "SurnameTextBox";
             this.SurnameTextBox.Size = new System.Drawing.Size(511, 22);
             this.SurnameTextBox.TabIndex = 12;
+            this.SurnameTextBox.TextChanged += new System.EventHandler(this.SurnameTextBox_TextChanged);
             // 
             // SurnameLabel
             // 
@@ -87,7 +88,7 @@
             // VKTextBox
             // 
             this.VKTextBox.Location = new System.Drawing.Point(80, 240);
-            this.VKTextBox.MaxLength = 25643;
+            this.VKTextBox.MaxLength = 15;
             this.VKTextBox.Name = "VKTextBox";
             this.VKTextBox.Size = new System.Drawing.Size(511, 22);
             this.VKTextBox.TabIndex = 16;
@@ -104,7 +105,7 @@
             // EmailTextBox
             // 
             this.EmailTextBox.Location = new System.Drawing.Point(80, 197);
-            this.EmailTextBox.MaxLength = 25643;
+            this.EmailTextBox.MaxLength = 50;
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(511, 22);
             this.EmailTextBox.TabIndex = 15;
@@ -121,7 +122,7 @@
             // PhoneTextBox
             // 
             this.PhoneTextBox.Location = new System.Drawing.Point(80, 151);
-            this.PhoneTextBox.MaxLength = 25643;
+            this.PhoneTextBox.MaxLength = 11;
             this.PhoneTextBox.Name = "PhoneTextBox";
             this.PhoneTextBox.Size = new System.Drawing.Size(511, 22);
             this.PhoneTextBox.TabIndex = 14;
@@ -138,7 +139,7 @@
             // NameTextBox
             // 
             this.NameTextBox.Location = new System.Drawing.Point(80, 61);
-            this.NameTextBox.MaxLength = 25643;
+            this.NameTextBox.MaxLength = 50;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(511, 22);
             this.NameTextBox.TabIndex = 13;
@@ -164,6 +165,8 @@
             // BirthdayTimePicker
             // 
             this.BirthdayTimePicker.Location = new System.Drawing.Point(80, 111);
+            this.BirthdayTimePicker.MaxDate = new System.DateTime(2024, 5, 24, 0, 0, 0, 0);
+            this.BirthdayTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.BirthdayTimePicker.Name = "BirthdayTimePicker";
             this.BirthdayTimePicker.Size = new System.Drawing.Size(136, 22);
             this.BirthdayTimePicker.TabIndex = 11;
@@ -177,6 +180,7 @@
             this.OkButton.TabIndex = 23;
             this.OkButton.Text = "OK";
             this.OkButton.UseVisualStyleBackColor = true;
+            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // CancelButton
             // 
@@ -186,6 +190,7 @@
             this.CancelButton.TabIndex = 24;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // EditForm
             // 
@@ -197,7 +202,6 @@
             this.Controls.Add(this.DataPanel);
             this.Name = "EditForm";
             this.Text = "Add/Edit Contact";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.DataPanel.ResumeLayout(false);
             this.DataPanel.PerformLayout();
             this.ResumeLayout(false);

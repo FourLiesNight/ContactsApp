@@ -15,12 +15,11 @@ namespace ContactApp
     /// Класс, в котором содержится информация об абоненте.
     /// </summary>
     public class Contact
-
     {
         public string Surname;
         public string Name;
         public PhoneNumber number = new PhoneNumber();
-        public DateTime Birthday;
+        public DateTime Birthday = DateTime.MinValue;
         public string Mail;
         public int IdVk;
 

@@ -28,24 +28,16 @@ namespace ContactApp
         /// <summary>
         /// Метод для загрузки файлов из файла.
         /// </summary>
-        public static object LoadFromFile()
+        public static List<Contact> LoadFromFile()
         {
-            Contact temp = null;
+            List<Contact> ContactFile;
+
             JsonSerializer serializer = new JsonSerializer();
-
-            using (StreamReader sr = new StreamReader("~\\note.txt"))
+            using (StreamReader sr = new StreamReader("C:\\Users\\chemo\\Documents\\Visual Studio Solutions\\ContactApp\\ContactApp\\ContactApp\\Contacts.txt"))
             using (JsonReader reader = new JsonTextReader(sr))
-            {
-                temp = (Contact)serializer.Deserialize<Contact>(reader);
-                Console.WriteLine($"Surname: {temp.Surname}");
-                Console.WriteLine($"Name: {temp.Name}");
-                Console.WriteLine($"PhoneNumber: {temp.number.Number}");
-                Console.WriteLine($"Surname: {temp.Birthday}");
-                Console.WriteLine($"E-mail: {temp.Mail}");
-                Console.WriteLine($"ID ВКонтакте: {temp.IdVk}");
-            }
+                ContactFile = serializer.Deserialize<List<Contact>>(reader);
 
-            return 0;
+            return ContactFile;
         }
     }
 }

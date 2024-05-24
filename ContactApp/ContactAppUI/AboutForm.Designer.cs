@@ -35,6 +35,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -61,18 +62,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(28, 101);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 16);
+            this.label3.Size = new System.Drawing.Size(149, 16);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Author: Stanislave Isakov";
+            this.label3.Text = "Author: Stanislav Isakov";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(28, 141);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(227, 16);
+            this.label4.Size = new System.Drawing.Size(122, 16);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Email for feedback: Вот это напиши";
+            this.label4.Text = "Email for feedback:";
             // 
             // label5
             // 
@@ -86,27 +87,40 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(80, 181);
+            this.linkLabel1.Location = new System.Drawing.Point(82, 181);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(175, 16);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "/FourLiesNight/ContactsApp";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(28, 311);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(293, 16);
+            this.label6.Size = new System.Drawing.Size(136, 16);
             this.label6.TabIndex = 100;
-            this.label6.Text = "2024 Stanislav Sladenkiy, NePZD Technologies";
+            this.label6.Text = "2024 Stanislav Isakov";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(156, 141);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(197, 16);
+            this.linkLabel2.TabIndex = 101;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "isakovstanislav902@gmail.com";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 349);
+            this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label5);
@@ -117,7 +131,6 @@
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AboutForm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,5 +145,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
