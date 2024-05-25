@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.DataPanel = new System.Windows.Forms.Panel();
             this.SurnameTextBox = new System.Windows.Forms.TextBox();
             this.SurnameLabel = new System.Windows.Forms.Label();
@@ -43,7 +44,9 @@
             this.BirthdayTimePicker = new System.Windows.Forms.DateTimePicker();
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.birthdayErr = new System.Windows.Forms.ErrorProvider(this.components);
             this.DataPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.birthdayErr)).BeginInit();
             this.SuspendLayout();
             // 
             // DataPanel
@@ -92,6 +95,7 @@
             this.VKTextBox.Name = "VKTextBox";
             this.VKTextBox.Size = new System.Drawing.Size(511, 22);
             this.VKTextBox.TabIndex = 16;
+            this.VKTextBox.TextChanged += new System.EventHandler(this.VKTextBox_TextChanged);
             // 
             // NameLabel
             // 
@@ -109,6 +113,7 @@
             this.EmailTextBox.Name = "EmailTextBox";
             this.EmailTextBox.Size = new System.Drawing.Size(511, 22);
             this.EmailTextBox.TabIndex = 15;
+            this.EmailTextBox.TextChanged += new System.EventHandler(this.EmailTextBox_TextChanged);
             // 
             // VKLabel
             // 
@@ -126,6 +131,7 @@
             this.PhoneTextBox.Name = "PhoneTextBox";
             this.PhoneTextBox.Size = new System.Drawing.Size(511, 22);
             this.PhoneTextBox.TabIndex = 14;
+            this.PhoneTextBox.TextChanged += new System.EventHandler(this.PhoneTextBox_TextChanged);
             // 
             // BirthdayLabel
             // 
@@ -143,6 +149,7 @@
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(511, 22);
             this.NameTextBox.TabIndex = 13;
+            this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
             // 
             // PhoneLabel
             // 
@@ -168,9 +175,10 @@
             this.BirthdayTimePicker.MaxDate = new System.DateTime(2024, 5, 24, 0, 0, 0, 0);
             this.BirthdayTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.BirthdayTimePicker.Name = "BirthdayTimePicker";
-            this.BirthdayTimePicker.Size = new System.Drawing.Size(136, 22);
+            this.BirthdayTimePicker.Size = new System.Drawing.Size(187, 22);
             this.BirthdayTimePicker.TabIndex = 11;
             this.BirthdayTimePicker.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.BirthdayTimePicker.ValueChanged += new System.EventHandler(this.BirthdayTimePicker_ValueChanged);
             // 
             // OkButton
             // 
@@ -192,6 +200,11 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // birthdayErr
+            // 
+            this.birthdayErr.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.birthdayErr.ContainerControl = this;
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -204,6 +217,7 @@
             this.Text = "Add/Edit Contact";
             this.DataPanel.ResumeLayout(false);
             this.DataPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.birthdayErr)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +240,6 @@
         private System.Windows.Forms.DateTimePicker BirthdayTimePicker;
         private System.Windows.Forms.Button OkButton;
         private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.ErrorProvider birthdayErr;
     }
 }

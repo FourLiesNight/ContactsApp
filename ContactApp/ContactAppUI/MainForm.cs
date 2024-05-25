@@ -11,9 +11,9 @@ namespace ContactAppUI
         public MainForm()
         {
             InitializeComponent();
-            AllContacts.PhoneList = ProjectManager.LoadFromFile();
-            ContactsListBox.Items.Clear();
 
+            //Загружаем из файла контакты и заполняем фамилии в listbox(если контакты есть)
+            AllContacts.PhoneList = ProjectManager.LoadFromFile();
             if (AllContacts.PhoneList != null)
                 for(int i = 0; i < AllContacts.PhoneList.Count; i++)
                     ContactsListBox.Items.Add(AllContacts.PhoneList[i].Surname);
@@ -23,6 +23,7 @@ namespace ContactAppUI
 
         private void ContactsListBox_MouseClick(object sender, MouseEventArgs e)
         {
+            //Вывод необходимого контакта на экран
             if (ContactsListBox.SelectedIndex != -1) 
             {
                 var selectedSurname = AllContacts.PhoneList[ContactsListBox.SelectedIndex];
@@ -48,12 +49,15 @@ namespace ContactAppUI
             addData.Contact = new Contact();
             addData.ShowDialog();
 
-            //Обрабатываем данные из формы(Добваляем в имеющийся список контактов новые данные, добавляем новую фамилию в список)
-            AllContacts.PhoneList.Add(addData.Contact);
-            ContactsListBox.Items.Add(addData.Contact.Surname);
+            if (addData.Contact != null)
+            { 
+                //Обрабатываем данные из формы(Добваляем в имеющийся список контактов новые данные, добавляем новую фамилию в список)
+                AllContacts.PhoneList.Add(addData.Contact);
+                ContactsListBox.Items.Add(addData.Contact.Surname);
 
-            //Сохраняем в файл
-            ProjectManager.SaveToFile(AllContacts.PhoneList);
+                //Сохраняем в файл
+                ProjectManager.SaveToFile(AllContacts.PhoneList);
+            }
         }
 
         private void editContactToolStripMenuItem_Click(object sender, EventArgs e)
@@ -65,12 +69,15 @@ namespace ContactAppUI
                 editData.Contact = AllContacts.PhoneList[ContactsListBox.SelectedIndex];
                 editData.ShowDialog();
 
-                //Перезаписываем данные
-                var editedData = editData.Contact;
-                AllContacts.PhoneList[ContactsListBox.SelectedIndex] = editedData;
-                ContactsListBox.Items[ContactsListBox.SelectedIndex] = editedData.Surname;
+                if (editData.Contact != null)
+                {
+                    //Перезаписываем данные
+                    var editedData = editData.Contact;
+                    AllContacts.PhoneList[ContactsListBox.SelectedIndex] = editedData;
+                    ContactsListBox.Items[ContactsListBox.SelectedIndex] = editedData.Surname;
 
-                ProjectManager.SaveToFile(AllContacts.PhoneList);
+                    ProjectManager.SaveToFile(AllContacts.PhoneList);
+                }
             }
             else
                 MessageBox.Show("No contact selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -78,6 +85,7 @@ namespace ContactAppUI
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Инициализируем и показываем форму
             AboutForm about = new AboutForm();
             about.ShowDialog();
         }
@@ -86,11 +94,14 @@ namespace ContactAppUI
         {
             if (ContactsListBox.SelectedIndex != -1)
             {
+                //DialogResult держит в себе какую кнопку в messagebox нажали
                 DialogResult = MessageBox.Show("Are you sure you want to delete this contact?", "Delete contact", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                //Если в messagebox нажали "да", то удаляем
                 if (DialogResult == DialogResult.Yes)
                 {
+                    //Чистка в списке контактов и удаление фамилии из listbox
                     AllContacts.PhoneList.RemoveAt(ContactsListBox.SelectedIndex);
                     ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
                     ProjectManager.SaveToFile(AllContacts.PhoneList);

@@ -17,9 +17,10 @@ namespace ContactAppUI
             InitializeComponent();
         }
 
+        //События запускают браузер и переходят по ссылке
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("mailto:isakovstanislav902@gmail.com");
+            System.Diagnostics.Process.Start("mailto:isakovstanislav902@gmail.com"); //Не работает
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
