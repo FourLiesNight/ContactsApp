@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApp", "ContactApp\ContactApp.csproj", "{7A78552C-54CE-4DE1-9759-1CDF6E4E95F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApp.UnitTests", "ContactApp.UnitTests\ContactApp.UnitTests.csproj", "{74F778B9-7E1D-4C60-8AE1-119C19E09E03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A78552C-54CE-4DE1-9759-1CDF6E4E95F9} = {7A78552C-54CE-4DE1-9759-1CDF6E4E95F9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

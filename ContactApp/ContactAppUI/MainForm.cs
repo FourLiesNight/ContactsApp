@@ -15,8 +15,11 @@ namespace ContactAppUI
             //Загружаем из файла контакты и заполняем фамилии в listbox(если контакты есть)
             AllContacts.PhoneList = ProjectManager.LoadFromFile();
             if (AllContacts.PhoneList != null)
-                for(int i = 0; i < AllContacts.PhoneList.Count; i++)
+                for (int i = 0; i < AllContacts.PhoneList.Count; i++)
                     ContactsListBox.Items.Add(AllContacts.PhoneList[i].Surname);
+            else
+                AllContacts.PhoneList = new List<Contact>();
+
         }
 
         public Project AllContacts = new Project();

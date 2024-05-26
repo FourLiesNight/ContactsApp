@@ -16,6 +16,24 @@ namespace ContactApp
     /// </summary>
     public class PhoneNumber
     {
+        private long _number;
+
+        /// <summary>
+        /// Задает и возвращает номер телефона.
+        /// </summary>
+        public long Number
+        {
+            get { return _number; }
+
+            set
+            {
+                if (value != null && value.ToString().Length == 11 && (int)(value / Math.Pow(10, 10)) == 7)
+                    _number = value;
+                else
+                    throw new ArgumentException("Неверно набран номер");
+            }
+        }
+
         /// <summary>
         /// Метод, для записи номера телефона(метод set).
         /// </summary>
@@ -27,14 +45,12 @@ namespace ContactApp
                 throw new ArgumentException("Неверно набран номер");
         }
 
-    /// <summary>
-    /// Метод для получения номера телефона(метод get).
-    /// </summary>
-    public long GetNumber()
+        /// <summary>
+        /// Метод для получения номера телефона(метод get).
+        /// </summary>
+        public long GetNumber()
         {
             return Number;
         }
-
-        public long Number;
     }
 }

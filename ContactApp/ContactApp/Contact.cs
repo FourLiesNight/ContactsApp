@@ -16,12 +16,104 @@ namespace ContactApp
     /// </summary>
     public class Contact
     {
-        public string Surname;
-        public string Name;
-        public PhoneNumber number = new PhoneNumber();
-        public DateTime Birthday = DateTime.MinValue;
-        public string Mail;
-        public int IdVk;
+        private string _surname;
+        private string _name;
+        private PhoneNumber _number = new PhoneNumber();
+        private DateTime _birthday;
+        private string _mail;
+        private int _vkId;
+
+        /// <summary>
+        /// Задает и возвращает фамилию.
+        /// </summary>
+        public string Surname
+        {
+            get { return _surname; }
+
+            set
+                {
+                    if (!string.IsNullOrEmpty(value) && value.Length <= 50)
+                        _surname = char.ToUpper(value[0]) + value.Substring(1);
+                    else
+                        throw new ArgumentException("Фамилия не должна быть пустой и должна быть менее 50 символов");
+                }
+        }
+
+        /// <summary>
+        /// Задает и возвращает имя.
+        /// </summary>
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && value.Length <= 50)
+                    _name = char.ToUpper(value[0]) + value.Substring(1);
+                else
+                    throw new ArgumentException("Имя не должно быть пустым и должно быть менее 50 символов");
+            }
+        }
+
+        /// <summary>
+        /// Задает и возвращает номер телефона.
+        /// </summary>
+        public PhoneNumber number
+        {
+            get { return _number; }
+
+            set { _number = value; }
+        }
+
+        /// <summary>
+        /// Задает и возвращает дату рождения.
+        /// </summary>
+        public DateTime Birthday
+        {
+            get { return _birthday; }
+
+            set
+            {
+                if (value.Year > 1900 && value.Date <= DateTime.Today)
+                    _birthday = value;
+                else
+                    throw new ArgumentException("Ошибка ввода даты рождения");
+            }
+        }
+
+        /// <summary>
+        /// Задает и возвращает адрес электронной почты.
+        /// </summary>
+        public string Mail
+        {
+            get { return _mail; }
+
+            set 
+            {
+                if (!string.IsNullOrEmpty(value) && value.Length <= 50)
+                    _mail = value;
+                else
+                    throw new ArgumentException("Почтовый адрес не должен быть пустым и должно быть менее 50 символов");
+            }
+        }
+
+        /// <summary>
+        /// Задает и возвращает ID ВКонтакте.
+        /// </summary>
+        public int IdVk
+        {
+            get { return _vkId; }
+
+            set
+            {
+                if (value != null && value.ToString().Length <= 15)
+                    _vkId = value;
+                else
+                    throw new ArgumentException("id ВКонтакте не должно быть пустым и должно быть менее 15 символов");
+            }
+        }
+
+
 
         /// <summary>
         /// Метод, записывающий фамилию абонента(метод set).
@@ -74,7 +166,7 @@ namespace ContactApp
         {
             if (id != null && id.ToString().Length <= 15)
                 IdVk = id;
-            else 
+            else
                 throw new ArgumentException("id ВКонтакте не должно быть пустым и должно быть менее 15 символов");
         }
 

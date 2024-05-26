@@ -75,7 +75,7 @@
             this.helpToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(1006, 28);
+            this.MenuStrip.Size = new System.Drawing.Size(1006, 30);
             this.MenuStrip.TabIndex = 1;
             this.MenuStrip.Text = "menuStrip1";
             // 
@@ -84,7 +84,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
@@ -101,7 +101,7 @@
             this.editContactToolStripMenuItem,
             this.deleteContactToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // addContactToolStripMenuItem
@@ -121,14 +121,14 @@
             // deleteContactToolStripMenuItem
             // 
             this.deleteContactToolStripMenuItem.Name = "deleteContactToolStripMenuItem";
-            this.deleteContactToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.deleteContactToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
             this.deleteContactToolStripMenuItem.Text = "Delete Contact";
             this.deleteContactToolStripMenuItem.Click += new System.EventHandler(this.deleteContactToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -336,9 +336,9 @@
             this.LeftPanel.Controls.Add(this.ContactsListBox);
             this.LeftPanel.Controls.Add(this.FindTextBox);
             this.LeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LeftPanel.Location = new System.Drawing.Point(0, 28);
+            this.LeftPanel.Location = new System.Drawing.Point(0, 30);
             this.LeftPanel.Name = "LeftPanel";
-            this.LeftPanel.Size = new System.Drawing.Size(277, 645);
+            this.LeftPanel.Size = new System.Drawing.Size(277, 643);
             this.LeftPanel.TabIndex = 24;
             // 
             // MainForm
