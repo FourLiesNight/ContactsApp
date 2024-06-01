@@ -20,7 +20,7 @@ namespace ContactApp
         public static void SaveToFile(object data)
         {
             JsonSerializer serializer = new JsonSerializer();
-            using (var sw = new StreamWriter("C:\\Users\\chemo\\Documents\\Visual Studio Solutions\\ContactApp\\ContactApp\\ContactApp\\Contacts.txt"))
+            using (var sw = new StreamWriter(@"..\..\..\Contacts.txt"))
             using (JsonWriter writer = new JsonTextWriter(sw))
                 serializer.Serialize(writer, data); //Вызываем сериализацию и передаем объект, который хотим сериализовать
         }
@@ -33,7 +33,7 @@ namespace ContactApp
             List<Contact> ContactFile;
 
             JsonSerializer serializer = new JsonSerializer();
-            using (StreamReader sr = new StreamReader("C:\\Users\\chemo\\Documents\\Visual Studio Solutions\\ContactApp\\ContactApp\\ContactApp\\Contacts.txt"))
+            using (StreamReader sr = new StreamReader(@"..\..\..\Contacts.txt"))
             using (JsonReader reader = new JsonTextReader(sr))
                 ContactFile = serializer.Deserialize<List<Contact>>(reader);
 

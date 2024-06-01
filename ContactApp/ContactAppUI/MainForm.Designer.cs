@@ -57,6 +57,7 @@
             this.MinusPicture = new System.Windows.Forms.PictureBox();
             this.PlusPicture = new System.Windows.Forms.PictureBox();
             this.LeftPanel = new System.Windows.Forms.Panel();
+            this.BirthDayListBox = new System.Windows.Forms.ListBox();
             this.MenuStrip.SuspendLayout();
             this.DataPanel.SuspendLayout();
             this.EditButsPanel.SuspendLayout();
@@ -84,7 +85,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
@@ -101,7 +102,7 @@
             this.editContactToolStripMenuItem,
             this.deleteContactToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // addContactToolStripMenuItem
@@ -128,7 +129,7 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -147,6 +148,7 @@
             this.FindTextBox.Name = "FindTextBox";
             this.FindTextBox.Size = new System.Drawing.Size(200, 22);
             this.FindTextBox.TabIndex = 3;
+            this.FindTextBox.TextChanged += new System.EventHandler(this.FindTextBox_TextChanged);
             // 
             // ContactsListBox
             // 
@@ -158,6 +160,7 @@
             this.ContactsListBox.Size = new System.Drawing.Size(262, 500);
             this.ContactsListBox.TabIndex = 4;
             this.ContactsListBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ContactsListBox_MouseClick);
+            this.ContactsListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ContactsListBox_KeyDown);
             // 
             // SurnameLabel
             // 
@@ -341,6 +344,20 @@
             this.LeftPanel.Size = new System.Drawing.Size(277, 643);
             this.LeftPanel.TabIndex = 24;
             // 
+            // BirthDayListBox
+            // 
+            this.BirthDayListBox.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BirthDayListBox.FormattingEnabled = true;
+            this.BirthDayListBox.ItemHeight = 16;
+            this.BirthDayListBox.Items.AddRange(new object[] {
+            "Сегодня день рождения:"});
+            this.BirthDayListBox.Location = new System.Drawing.Point(304, 534);
+            this.BirthDayListBox.Name = "BirthDayListBox";
+            this.BirthDayListBox.Size = new System.Drawing.Size(702, 148);
+            this.BirthDayListBox.TabIndex = 24;
+            this.BirthDayListBox.Visible = false;
+            this.BirthDayListBox.SelectedIndexChanged += new System.EventHandler(this.BirthDayListBox_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -348,6 +365,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1006, 673);
+            this.Controls.Add(this.BirthDayListBox);
             this.Controls.Add(this.LeftPanel);
             this.Controls.Add(this.DataPanel);
             this.Controls.Add(this.MenuStrip);
@@ -402,5 +420,6 @@
         private System.Windows.Forms.PictureBox EditPicture;
         private System.Windows.Forms.PictureBox MinusPicture;
         private System.Windows.Forms.Panel LeftPanel;
+        private System.Windows.Forms.ListBox BirthDayListBox;
     }
 }

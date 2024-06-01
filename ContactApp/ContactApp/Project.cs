@@ -12,6 +12,17 @@ namespace ContactApp
     /// </summary>
     public class Project
     {
-        public List<Contact> PhoneList;
+        private List<Contact> _list;
+        public List<Contact> PhoneList
+        {
+            get 
+            {
+                _list.Sort();
+                return _list; 
+            }
+
+            set
+            { _list = value; }
+        }
     }
 }

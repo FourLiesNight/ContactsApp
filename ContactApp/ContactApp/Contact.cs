@@ -14,7 +14,7 @@ namespace ContactApp
     /// <summary>
     /// Класс, в котором содержится информация об абоненте.
     /// </summary>
-    public class Contact
+    public class Contact: IComparable<Contact>
     {
         private string _surname;
         private string _name;
@@ -208,6 +208,11 @@ namespace ContactApp
         public int GetVk()
         {
             return IdVk;
+        }
+
+        public int CompareTo(Contact other)
+        {
+            return this.Surname.CompareTo(other.Surname);
         }
     }
 }
