@@ -21,7 +21,21 @@ namespace ContactApp
         private PhoneNumber _number = new PhoneNumber();
         private DateTime _birthday;
         private string _mail;
-        private int _vkId;
+        private string _vkId;
+        private string _idVk;
+
+        /// <summary>
+        /// Конструктор класса, объявляющий переменные
+        /// </summary>
+        public Contact()
+        {
+            _surname = null;
+            _name = null;
+            _number = new PhoneNumber();
+            _birthday = new DateTime(2000, 01, 01);
+            _mail = null;
+            _vkId = null;
+        }
 
         /// <summary>
         /// Задает и возвращает фамилию.
@@ -100,7 +114,7 @@ namespace ContactApp
         /// <summary>
         /// Задает и возвращает ID ВКонтакте.
         /// </summary>
-        public int IdVk
+        public string IdVk
         {
             get { return _vkId; }
 
@@ -112,8 +126,6 @@ namespace ContactApp
                     throw new ArgumentException("id ВКонтакте не должно быть пустым и должно быть менее 15 символов");
             }
         }
-
-
 
         /// <summary>
         /// Метод, записывающий фамилию абонента(метод set).
@@ -162,10 +174,10 @@ namespace ContactApp
         /// <summary>
         /// Метод, записывающий id абонента во ВКонтакте(метод set).
         /// </summary>
-        public void SetVk(int id)
+        public void SetVk(string id)
         {
             if (id != null && id.ToString().Length <= 15)
-                IdVk = id;
+                _idVk = id;
             else
                 throw new ArgumentException("id ВКонтакте не должно быть пустым и должно быть менее 15 символов");
         }
@@ -205,11 +217,14 @@ namespace ContactApp
         /// <summary>
         /// Метод, возвращающий id абонента во ВКонтакте(метод get).
         /// </summary>
-        public int GetVk()
+        public string GetVk()
         {
-            return IdVk;
+            return _idVk;
         }
 
+        /// <summary>
+        /// Перегрузка интерфейса IComparable. Сравнивает фамилии на предмет алфавитного порядка
+        /// </summary>
         public int CompareTo(Contact other)
         {
             return this.Surname.CompareTo(other.Surname);

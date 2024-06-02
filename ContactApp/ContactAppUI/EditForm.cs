@@ -23,16 +23,6 @@ namespace ContactAppUI
             set
             {
                 contactData = value;
-
-                if (contactData != null)
-                {
-                    SurnameTextBox.Text = contactData.Surname;
-                    NameTextBox.Text = contactData.Name;
-                    PhoneTextBox.Text = contactData.number.Number.ToString();
-                    //BirthdayTimePicker.Value = contactData.Birthday;
-                    EmailTextBox.Text = contactData.Mail;
-                    VKTextBox.Text = contactData.IdVk.ToString();
-                }
             }
         }
 
@@ -52,8 +42,10 @@ namespace ContactAppUI
                 contactData.number.SetNumber(Convert.ToInt64(PhoneTextBox.Text));
                 contactData.Birthday = BirthdayTimePicker.Value;
                 contactData.Mail = EmailTextBox.Text;
-                contactData.IdVk = Convert.ToInt32(VKTextBox.Text);
+                contactData.IdVk = VKTextBox.Text;
 
+                // Говорим, что нажали ОК
+                DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
@@ -69,7 +61,7 @@ namespace ContactAppUI
 
         private void SurnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if(!Regex.IsMatch(SurnameTextBox.Text, @"[a-zA-Z]+$") || SurnameTextBox.Text.Length > 50)
+            if(!Regex.IsMatch(SurnameTextBox.Text, @"[a-zA-Z]+$") || SurnameTextBox.Text.Length > 50) //Состоит из больших и маленьких букв
                 SurnameTextBox.BackColor = Color.Red;
             else
                 SurnameTextBox.BackColor = Color.White;
@@ -77,7 +69,7 @@ namespace ContactAppUI
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(NameTextBox.Text, @"[a-zA-Z]+$") || NameTextBox.Text.Length > 50)
+            if (!Regex.IsMatch(NameTextBox.Text, @"[a-zA-Z]+$") || NameTextBox.Text.Length > 50) //Состоит из больших и маленьких букв
                 NameTextBox.BackColor = Color.Red;
             else
                 NameTextBox.BackColor = Color.White;
@@ -88,12 +80,12 @@ namespace ContactAppUI
             if(BirthdayTimePicker.Value >= new DateTime(1900, 1, 1) && BirthdayTimePicker.Value <= DateTime.Now)
                 birthdayErr.Clear();
             else
-                birthdayErr.SetError(BirthdayTimePicker, "Input error!");
+                birthdayErr.SetError(BirthdayTimePicker, "Input error!"); // TimePicker красить нельзя - появится ошибка при неправильном вводе
         }
 
         private void PhoneTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (Regex.IsMatch(PhoneTextBox.Text, @"^7\d{10}$"))
+            if (Regex.IsMatch(PhoneTextBox.Text, @"^7\d{10}$")) // Начинается с 7 и дальше 10 цифр
                 PhoneTextBox.BackColor = Color.White;
             else
                 PhoneTextBox.BackColor = Color.Red;
@@ -109,35 +101,50 @@ namespace ContactAppUI
 
         private void VKTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(VKTextBox.Text, @"[0-9]+$") || VKTextBox.Text.Length > 15)
+            if (!Regex.IsMatch(VKTextBox.Text, @"[0-9]+$") || VKTextBox.Text.Length > 15) // Есть цифры
                 VKTextBox.BackColor = Color.Red;
             else
                 VKTextBox.BackColor = Color.White;
         }
 
-        //Метод, который смотрит на цвет textbox
-        //Если все белые - ошибок нет
+        /// <summary>
+        /// Осуществляет проверку TextBox на красный цвет и на пустоту
+        /// </summary>
         public bool checkWhiteBoxes()
         {
-            if (SurnameTextBox.BackColor == Color.Red)
+            if (SurnameTextBox.BackColor == Color.Red || string.IsNullOrEmpty(SurnameTextBox.Text))
                 return false;
 
-            if (NameTextBox.BackColor == Color.Red)
+            if (NameTextBox.BackColor == Color.Red || string.IsNullOrEmpty(NameTextBox.Text))
                 return false;
 
-            if (PhoneTextBox.BackColor == Color.Red)
+            if (PhoneTextBox.BackColor == Color.Red || string.IsNullOrEmpty(PhoneTextBox.Text))
                 return false;
 
-            if (EmailTextBox.BackColor == Color.Red)
+            if (EmailTextBox.BackColor == Color.Red || string.IsNullOrEmpty(EmailTextBox.Text))
                 return false;
 
-            if (VKTextBox.BackColor == Color.Red)
+            if (VKTextBox.BackColor == Color.Red || string.IsNullOrEmpty(VKTextBox.Text))
                 return false;
 
             if (BirthdayTimePicker.Value <= new DateTime(1900, 1, 1) && BirthdayTimePicker.Value >= DateTime.Now)
                 return false;
 
             return true;
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            // Заполнение контакта, если он не пуст
+            if (contactData != null)
+            {
+                SurnameTextBox.Text = contactData.Surname;
+                NameTextBox.Text = contactData.Name;
+                PhoneTextBox.Text = contactData.number.Number.ToString();
+                BirthdayTimePicker.Value = contactData.Birthday;
+                EmailTextBox.Text = contactData.Mail;
+                VKTextBox.Text = contactData.IdVk;
+            }
         }
     }
 }

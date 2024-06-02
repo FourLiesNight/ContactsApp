@@ -22,7 +22,7 @@ namespace ContactAppUI
                     ContactsListBox.Items.Add(item.Surname); // Добавление фамилии контакта в список
 
                     // Если число и месяц дня рождения совпадает с "сегодняшним"
-                    if (item.Birthday.Day ==  DateTime.Today.Day && item.Birthday.Month == DateTime.Today.Month)
+                    if (item.Birthday.Day == DateTime.Today.Day && item.Birthday.Month == DateTime.Today.Month)
                     {
                         BirthDayListBox.Visible = true; // Появление списка именинников
                         BirthDayListBox.Items.Add(item.Surname); //Добавление фамилии в список
@@ -33,24 +33,21 @@ namespace ContactAppUI
                 AllContacts.PhoneList = new List<Contact>(); //Если нет контактов - инициализация списка для хранения
         }
 
+        // Вывод необходимого контакта на экран
         private void ContactsListBox_MouseClick(object sender, MouseEventArgs e)
         {
-            // Вывод необходимого контакта на экран
             if (ContactsListBox.SelectedIndex != -1) 
             {
-                // Выбираем выделенную фамилию
-                var selectedSurname = ContactsListBox.SelectedItem.ToString();
-
-                // Среди всего списка контактов ищем контакта с выделенной фамилией
-                var item = SearchContactBySurname(selectedSurname);
+                // Заполнение информации о контакте из list
+                currentSelectedContact = AllContacts.GetContactBySurname(ContactsListBox.SelectedItem.ToString());
 
                 // Заполняем текстбоксы информацией
-                SurnameTextBox.Text = item.Surname;
-                NameTextBox.Text = item.Name;
-                BirthdayTimePicker.Value = item.Birthday;
-                PhoneTextBox.Text = item.number.Number.ToString();
-                EmailTextBox.Text = item.Mail;
-                VKTextBox.Text = item.IdVk.ToString();
+                SurnameTextBox.Text = currentSelectedContact.Surname;
+                NameTextBox.Text = currentSelectedContact.Name;
+                BirthdayTimePicker.Value = currentSelectedContact.Birthday;
+                PhoneTextBox.Text = currentSelectedContact.number.Number.ToString();
+                EmailTextBox.Text = currentSelectedContact.Mail;
+                VKTextBox.Text = currentSelectedContact.IdVk;
             }
         }
 
@@ -61,19 +58,20 @@ namespace ContactAppUI
 
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Инициализация формы и экземпляр класса контакт для добавления нового контакта
+            //Инициализация формы и экземпляра класса контакт для добавления нового контакта
             EditForm addData = new EditForm();
             addData.Contact = new Contact();
             addData.ShowDialog();
 
-            if (addData.Contact != null)
-            { 
+            if (addData.DialogResult == DialogResult.OK)
+            {
                 //Обрабатываем данные из формы(Добваляем в имеющийся список контактов новые данные, добавляем новую фамилию в список)
                 AllContacts.PhoneList.Add(addData.Contact);
                 ContactsListBox.Items.Add(addData.Contact.Surname);
 
-                //Сохраняем в файл
+                //Сохраняем в файл и обновляем список
                 ProjectManager.SaveToFile(AllContacts.PhoneList);
+                UpdateListBox();
             }
         }
 
@@ -81,20 +79,29 @@ namespace ContactAppUI
         {
             if (ContactsListBox.SelectedIndex != -1)
             {
-                //Инициализируем форму и передаем данные для изменения
+                // Выбранную фамилию запоминаем, с ее помощью в осн. списке ищем всю информацию
+                // Передаем эту информацию в Contact в EditForm
+                string contactSurnameToChange = ContactsListBox.SelectedItem.ToString();
                 EditForm editData = new EditForm();
-                editData.Contact = SearchContactBySurname(ContactsListBox.SelectedItem.ToString());
+                editData.Contact = AllContacts.GetContactBySurname(contactSurnameToChange);
                 editData.ShowDialog();
 
-                // При нажатии Cancel в EditForm экземпляр Contact принимает null
-                if (editData.Contact != null)
+                // Если нажали OK
+                if (editData.DialogResult == DialogResult.OK)
                 {
-                    //Перезаписываем данные
-                    var editedData = editData.Contact;
-                    AllContacts.PhoneList[ContactsListBox.SelectedIndex] = editedData;
-                    ContactsListBox.Items[ContactsListBox.SelectedIndex] = editedData.Surname;
+                    // Передаем Contact из EditData сюда
+                    Contact editedContact = editData.Contact;
+                    // Ищем настоящий индекс контакта в осн. списке
+                    // На случай, если искали контакт в find и единственную фамилию в ListBox изменяли
+                    int changeDataIndex = FindRealIndex(contactSurnameToChange);
 
+                    //Удаляем старые данные и вносим новые
+                    ContactsListBox.Items.RemoveAt(changeDataIndex);
+                    ContactsListBox.Items.Add(editedContact.Surname);
+
+                    //Сохранение, обновление списка
                     ProjectManager.SaveToFile(AllContacts.PhoneList);
+                    UpdateListBox();
                 }
             }
             else
@@ -119,12 +126,15 @@ namespace ContactAppUI
                 //Если в messagebox нажали "да", то удаляем
                 if (DialogResult == DialogResult.Yes)
                 {
+                    int realIndex = FindRealIndex(ContactsListBox.SelectedItem.ToString());
+
                     //Чистка в списке контактов и удаление фамилии из listbox
-                    AllContacts.PhoneList.RemoveAt(ContactsListBox.SelectedIndex);
-                    ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
+                    AllContacts.PhoneList.RemoveAt(realIndex);
+                    ContactsListBox.Items.RemoveAt(realIndex);
                     ProjectManager.SaveToFile(AllContacts.PhoneList);
 
                     MessageBox.Show("Contact has been deleted!", "Delete contact", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    UpdateListBox();
                 }
             }
             else
@@ -137,6 +147,7 @@ namespace ContactAppUI
 
             if (!string.IsNullOrEmpty(request))
             {
+                // Очищаем весь список и ищем по введеной подстроке необходимую фамилию
                 ContactsListBox.Items.Clear();
 
                 foreach (var item in AllContacts.PhoneList)
@@ -145,6 +156,7 @@ namespace ContactAppUI
             }
             else
             {
+                // Когда стерли findbox
                 ContactsListBox.Items.Clear();
 
                 foreach (var item in AllContacts.PhoneList)
@@ -157,20 +169,21 @@ namespace ContactAppUI
             if (BirthDayListBox.SelectedIndex != -1 && BirthDayListBox.SelectedIndex != 0)
             {
                 // Среди всего списка контактов ищем контакта с выделенной фамилией
-                var item = SearchContactBySurname(BirthDayListBox.SelectedItem.ToString());
+                currentSelectedContact = AllContacts.GetContactBySurname(BirthDayListBox.SelectedValue.ToString());
 
                 // Заполняем текстбоксы информацией
-                SurnameTextBox.Text = item.Surname;
-                NameTextBox.Text = item.Name;
-                BirthdayTimePicker.Value = item.Birthday;
-                PhoneTextBox.Text = item.number.Number.ToString();
-                EmailTextBox.Text = item.Mail;
-                VKTextBox.Text = item.IdVk.ToString();
+                SurnameTextBox.Text = currentSelectedContact.Surname;
+                NameTextBox.Text = currentSelectedContact.Name;
+                BirthdayTimePicker.Value = currentSelectedContact.Birthday;
+                PhoneTextBox.Text = currentSelectedContact.number.Number.ToString();
+                EmailTextBox.Text = currentSelectedContact.Mail;
+                VKTextBox.Text = currentSelectedContact.IdVk;
             }
         }
 
         private void ContactsListBox_KeyDown(object sender, KeyEventArgs e)
         {
+            // Если был нажат "Delete" и выбрана фамилия в listbox
             if (e.KeyCode == Keys.Delete && ContactsListBox.SelectedIndex != -1)
             {
                 DialogResult = MessageBox.Show("Are you sure you want to delete this contact?", "Delete contact",
@@ -178,9 +191,11 @@ namespace ContactAppUI
 
                 if (DialogResult == DialogResult.Yes)
                 {
-                    AllContacts.PhoneList.RemoveAt(ContactsListBox.SelectedIndex);
-                    ContactsListBox.Items.RemoveAt(ContactsListBox.SelectedIndex);
+                    int realIndex = FindRealIndex(ContactsListBox.SelectedItem.ToString());
 
+                    //Чистка в списке контактов и удаление фамилии из listbox
+                    AllContacts.PhoneList.RemoveAt(realIndex);
+                    ContactsListBox.Items.RemoveAt(realIndex);
                     ProjectManager.SaveToFile(AllContacts.PhoneList);
 
                     MessageBox.Show("Contact has been deleted!", "Delete contact", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -188,23 +203,29 @@ namespace ContactAppUI
             }
         }
 
-        // Поиск контакта по фамилии
-        private Contact SearchContactBySurname(string _surname)
+        /// <summary>
+        /// Функция, обновляющая ListBox
+        /// </summary>
+        private void UpdateListBox()
         {
-            try
-            {
-                foreach (var item in AllContacts.PhoneList)
-                    if (_surname == item.Surname)
-                        return item;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occured!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return null;
+            ContactsListBox.Items.Clear();
+            foreach (var item in AllContacts.PhoneList)
+                ContactsListBox.Items.Add(item.Surname);
         }
 
-        public Project AllContacts = new Project();
+        /// <summary>
+        /// Производит поиск настоящего индекса контакта в Listbox по фамилии
+        /// </summary>
+        private int FindRealIndex(string _key)
+        {
+            for (int i = 0; i <= ContactsListBox.Items.Count; i++)
+                if (ContactsListBox.Items[i].ToString() == _key)
+                    return i;
+
+            return -1;
+        }
+
+        private Contact currentSelectedContact = new Contact();
+        private Project AllContacts = new Project();
     }
 }

@@ -215,6 +215,7 @@
             this.Controls.Add(this.DataPanel);
             this.Name = "EditForm";
             this.Text = "Add/Edit Contact";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             this.DataPanel.ResumeLayout(false);
             this.DataPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.birthdayErr)).EndInit();
